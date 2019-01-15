@@ -15,3 +15,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/Gridlist','GridList@index');
+Route::get('/grid/{id}','grid@index');
