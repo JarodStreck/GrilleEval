@@ -72,12 +72,34 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Grille Numéro {{$id}}
+                    Grille Numéro
                 </div>
 
                 <div class="links">
                     <a href="/">Home</a>
                     <a href="https://laracasts.com">Nouvelle grille</a>
+
+                </div>
+                <div>
+                    <table class='grid'>
+                        <tr>
+                            <tr class="table-row" >
+                            @foreach($criterium as $ckey => $criteria)
+
+                                    <th style="transform: rotate(270deg);">{{$criteria['description']}}</th>
+                                    <tr>
+                                    @foreach($students as $skey => $student)
+
+                                            <td>{{$points[$skey][$ckey]}}
+
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tr>
+                        </tr>
+
+                    </table
+
 
                 </div>
                 <br>

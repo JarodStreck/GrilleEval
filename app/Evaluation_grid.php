@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Grid extends Model
+class Evaluation_grid extends Model
 {
     public $timestamps = false;
-    
+
 }
