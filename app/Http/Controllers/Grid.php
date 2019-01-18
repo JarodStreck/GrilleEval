@@ -27,7 +27,7 @@ class Grid extends Controller
             $points[$content->student_id][$content->criteria_id] =$content->nbPoint;
 
         }
-        //return view('grid')->with('criterium', $criterium)->with('students',$students)->with('points',$points);
-        dd($points);
+        return view('grid')->with('criterium', $criterium)->with('students',$students)->with('points',$points);
+        
     }
 }

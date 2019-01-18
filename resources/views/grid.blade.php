@@ -87,16 +87,18 @@
                             @foreach($criterium as $ckey => $criteria)
 
                                     <th style="transform: rotate(270deg);">{{$criteria['description']}}</th>
-                                    <tr>
-                                    @foreach($students as $skey => $student)
 
-                                            <td>{{$points[$skey][$ckey]}}
-
-                                    @endforeach
-                                </tr>
                             @endforeach
                         </tr>
-                        </tr>
+                        @foreach($students as $skey => $student)
+                            <tr><td>{{$student}}</td>
+                                @foreach ($points[$skey] as $pkey => $point)
+                                    <td>{{$point}}</td>
+                                @endforeach
+                            </tr>
+
+
+                        @endforeach
 
                     </table
 
