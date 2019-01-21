@@ -11,7 +11,6 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-
         <!-- Styles -->
         <style>
             html, body {
@@ -64,49 +63,78 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+
+            .gridtable{
+                border-collapse: collapse;
+
+                empty-cells: show;
+
+            }
+            th{
+                transform: rotate(270deg);
+                white-space:pre-wrap;
+                width: 50px;
+            }
+            .first{
+            
+
+            }
+            .headerdiv{
+                width: 150px;
+                height: 50px;
+                vertical-align: text-top;
+                display: inline-block;
+    margin-left: 50px;
+
+            }
+            .contentdiv:first{
+
+            }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
 
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Grille Numéro
-                </div>
 
-                <div class="links">
-                    <a href="/">Home</a>
-                    <a href="https://laracasts.com">Nouvelle grille</a>
+    <div class="links">
+        <a href="/">Home</a>
+        <a href="https://laracasts.com">Nouvelle grille</a>
 
-                </div>
-                <div>
-                    <table class='grid'>
-                        <tr>
-                            <tr class="table-row" >
-                            @foreach($criterium as $ckey => $criteria)
+    </div>
 
-                                    <th style="transform: rotate(270deg);">{{$criteria['description']}}</th>
+        <table class="gridtable" >
 
-                            @endforeach
-                        </tr>
-                        @foreach($students as $skey => $student)
-                            <tr><td>{{$student}}</td>
-                                @foreach ($points[$skey] as $pkey => $point)
-                                    <td>{{$point}}</td>
-                                @endforeach
-                            </tr>
+                <tr class="first">
+                    <th>&nbsp;</th>
+                @foreach($criterium as $ckey => $criteria)
+
+                        <th><div class="headerdiv">{{$criteria['description']}}</div></th>
+
+                @endforeach
+
+                </tr>
 
 
+            @foreach($students as $skey => $student)
+
+                    <tr>
+
+                            <td>{{$student}}</td>
+
+                        @foreach ($points[$skey] as $pkey => $point)
+                            <td>{{$point}}</td>
                         @endforeach
 
-                    </table
+                    </tr>
+
+            @endforeach
+        </table>
 
 
-                </div>
-                <br>
 
-            </div>
-        </div>
+
+
+
     </body>
 </html>
