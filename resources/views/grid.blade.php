@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="/js/grid.js"></script>
 
         <!-- Styles -->
         <style>
@@ -68,27 +69,12 @@
             .gridtable{
                 border-collapse: collapse;
 
-                empty-cells: show;
+
 
             }
             th{
-                transform: rotate(270deg);
-                white-space:pre-wrap;
+                height: 140px;
                 width: 50px;
-            }
-            .first{
-            
-
-            }
-            .headerdiv{
-                width: 150px;
-                height: 50px;
-                vertical-align: text-top;
-                display: inline-block;
-    margin-left: 50px;
-
-            }
-            .contentdiv:first{
 
             }
         </style>
@@ -97,44 +83,57 @@
 
 
 
-    <div class="links">
-        <a href="/">Home</a>
-        <a href="https://laracasts.com">Nouvelle grille</a>
+        <div class="links">
+            <a href="/">Home</a>
+            <a href="https://laracasts.com">Nouvelle grille</a>
 
-    </div>
-
-        <table class="gridtable" >
-
-                <tr class="first">
-                    <th>&nbsp;</th>
-                @foreach($criterium as $ckey => $criteria)
-
-                        <th><div class="headerdiv">{{$criteria['description']}}</div></th>
-
-                @endforeach
-
-                </tr>
-
-
-            @foreach($students as $skey => $student)
+        </div>
+        <div>
+            <table id="gridtable" class="gridtable table table-sm table-bordered" >
 
                     <tr>
+                        <th>Grille d'évaluation</th>
+                        <th>Au 1/10</th>
+                        <th>Finale</th>
+                        <th>Total des points</th>
+                    @foreach($criterium as $ckey => $criteria)
 
-                            <td>{{$student}}</td>
+                            <th class="header" id="criteria-"{{$ckey}}>{{$criteria['description']}}</th>
 
-                        @foreach ($points[$skey] as $pkey => $point)
-                            <td>{{$point}}</td>
-                        @endforeach
+                    @endforeach
 
                     </tr>
 
-            @endforeach
-        </table>
+                @foreach($students as $skey => $student)
+
+                        <tr>
+                                <td style="font-weight:bold" id="student-"{{$skey}}>{{$student}}</td>
+                                <td>{{$noteDixieme[$skey]}}</td>
+                                <td>{{$noteFinale[$skey]}}</td>
+                                <td>{{$totalPoints[$skey]}}</td>
+                            @foreach($criterium as $ckey => $criteria)
+
+                                    <td  id="point" data-sid={{$skey}} data-cid={{$ckey}}>{{$points[$skey][$ckey]}}</td>
+
+                            @endforeach
 
 
+                        </tr>
 
+                @endforeach
+            </table>
+        </div>
+            <h3> Modifier la grille</h3>
+        <div>
+            <p>Élève</p>
+            <form>
+                <div id="student" >?</div>
+                <input type="hidden" id="sid" name="sid">;
 
-
-
+                <p>Critère</p>
+                <div id="criteria">?</div>
+                <input type="hidden" id="cid" name="cid">;
+            </form>
+        </div>
     </body>
 </html>
