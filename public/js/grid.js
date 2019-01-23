@@ -1,14 +1,17 @@
-var tbl = document.getElementById("gridtable");
+$( document ).ready(function() {
+    $( "td" ).click(function() {
 
-    if (tbl != null) {
+        var cid = $(this).data('cid');
+        var sid = $(this).data('sid');
+        var point = $(this).html();
 
-        for (var i = 0; i < tbl.rows.length; i++) {
-
-            for (var j = 0; j < tbl.rows[i].cells.length; j++)
-
-                tbl.rows[i].cells[j].addEventListener("click", function() {
-                  console.log(this);
-                });
-
-        }
-    }
+        console.log(cid + " " + sid + " Note " + point);
+        var sidSelector = "#criteria-" +sid ;
+        var cidSelector = "#student-" +cid ;
+        $('#cid').val(cid);
+        $('#sid').val(sid);
+        $('#criteria').html($(sidSelector).html());
+        $('#student').html($(cidSelector).html());
+         $('#pts').attr("placeholder", point);
+    });
+});

@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 Route::get('/Gridlist','GridList@index');
 Route::get('/grid/{id}','Grid@index');
+Route::post('/grid/{id}/update','Grid@update');

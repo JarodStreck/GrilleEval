@@ -45,8 +45,11 @@ class Grid extends Controller
         }
 
         //dd($points);
-        return view('grid')->with('criterium', $criterium)->with('students',$students)->with('points',$points)->with('totalPoints',$totalPoints)->with('noteFinale',$noteFinale)->with('noteDixieme',$noteDixieme);
+        return view('grid')->with('criterium', $criterium)->with('students',$students)->with('points',$points)->with('totalPoints',$totalPoints)->with('noteFinale',$noteFinale)->with('noteDixieme',$noteDixieme)->with('id',$id);
 
 
+    }
+    public function update($id,$cid,$sid,$pts){
+        dd($cid);
     }
 }
