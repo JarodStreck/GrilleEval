@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use DB;
 class Grid extends Controller
 {
@@ -49,7 +50,14 @@ class Grid extends Controller
 
 
     }
-    public function update($id,$cid,$sid,$pts){
-        dd($cid);
+    public function update(Request $request,$id){
+
+        DB::table('criteria_assessment')
+        ->where('student_id','=',$request->sid)
+        ->Where('criteria_id','=',$request->cid)
+        ->update(array('nbPoint' => $request->pts));
+        return back()->withInput()->with('old_sid',$request->sid)->with('old_cid',$request->cid);
+
+
     }
 }

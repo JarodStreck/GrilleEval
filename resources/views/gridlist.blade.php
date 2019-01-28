@@ -66,6 +66,8 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+
         </style>
     </head>
     <body>
@@ -84,7 +86,7 @@
                 </div>
                 <br>
                 <div class="grid" >
-                    <table class="table table-striped table-hover" style="margin: 0 auto;">
+                    <table class="table table-striped table-hover" >
                         <tr>
                             <th>Id</th>
                             <th>Module</th>

@@ -130,9 +130,10 @@
             <h3> Modifier la grille</h3>
         <div>
             <p>Élève</p>
-            @csrf
+
             <form method="post" action="{{$id}}/update">
-                <div id="student" ></div>
+                @csrf
+                <div id="student" >?</div>
                 <input type="hidden" id="sid" name="sid">
 
                 <p>Critère</p>
