@@ -7,6 +7,8 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
+
+
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -64,6 +66,8 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+
         </style>
     </head>
     <body>
@@ -82,7 +86,7 @@
                 </div>
                 <br>
                 <div class="grid" >
-                    <table class="table table-striped table-hover" style="margin: 0 auto;">
+                    <table class="table table-striped table-hover" >
                         <tr>
                             <th>Id</th>
                             <th>Module</th>

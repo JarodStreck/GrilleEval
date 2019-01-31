@@ -7,10 +7,14 @@
         <title>Laravel</title>
 
         <!-- Fonts -->
+        <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+        <script src="/js/grid.js"></script>
 
         <!-- Styles -->
         <style>
@@ -64,49 +68,80 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+
+            .gridtable{
+                border-collapse: collapse;
+
+
+
+            }
+            th{
+                height: 140px;
+                width: 50px;
+
+            }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
 
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Grille Numéro
-                </div>
 
-                <div class="links">
-                    <a href="/">Home</a>
-                    <a href="https://laracasts.com">Nouvelle grille</a>
+        <div class="links">
+            <a href="/">Home</a>
+            <a href="https://laracasts.com">Nouvelle grille</a>
 
-                </div>
-                <div>
-                    <table class='grid'>
+        </div>
+        <div>
+            <table id="gridtable" class="gridtable table table-sm table-bordered" >
+
+                    <tr>
+                        <th>Grille d'évaluation</th>
+                        <th>Au 1/10</th>
+                        <th>Finale</th>
+                        <th>Total des points</th>
+                    @foreach($criterium as $ckey => $criteria)
+
+                            <th class="header" id='criteria-{{$ckey}}'>{{$criteria['description']}}</th>
+
+                    @endforeach
+
+                    </tr>
+
+                @foreach($students as $skey => $student)
+
                         <tr>
-                            <tr class="table-row" >
+                                <td style="font-weight:bold" id='student-{{$skey}}'>{{$student}}</td>
+                                <td>{{$noteDixieme[$skey]}}</td>
+                                <td>{{$noteFinale[$skey]}}</td>
+                                <td>{{$totalPoints[$skey]}}</td>
                             @foreach($criterium as $ckey => $criteria)
 
-                                    <th style="transform: rotate(270deg);">{{$criteria['description']}}</th>
+                                    <td  id="point" data-sid={{$skey}} data-cid={{$ckey}}>{{$points[$skey][$ckey]}}</td>
 
                             @endforeach
+
+
                         </tr>
-                        @foreach($students as $skey => $student)
-                            <tr><td>{{$student}}</td>
-                                @foreach ($points[$skey] as $pkey => $point)
-                                    <td>{{$point}}</td>
-                                @endforeach
-                            </tr>
 
+                @endforeach
+            </table>
+        </div>
+            <h3> Modifier la grille</h3>
+        <div>
+            <p>Élève</p>
 
-                        @endforeach
+            <form method="post" action="{{$id}}/update">
+                @csrf
+                <div id="student" >?</div>
+                <input type="hidden" id="sid" name="sid">
 
-                    </table
-
-
-                </div>
-                <br>
-
-            </div>
+                <p>Critère</p>
+                <b><div id="criteria">?</div></b>
+                <input type="hidden" id="cid" name="cid">
+                <input type="text" name="pts" id="pts">
+                <input type="submit" name="update">
+            </form>
         </div>
     </body>
 </html>
