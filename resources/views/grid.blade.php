@@ -107,7 +107,14 @@
                     @endforeach
 
                     </tr>
+                    <tr style="font-weight:bold">
+                        <td >Pts Max</td>
+                        @foreach($criterium as $ckey => $criteria)
 
+                                <td id='criteria-{{$ckey}}'>{{$criteria['maxPoint']}}</td>
+
+                        @endforeach
+                    </tr>
                 @foreach($students as $skey => $student)
 
                         <tr>
@@ -117,7 +124,7 @@
                                 <td>{{$totalPoints[$skey]}}</td>
                             @foreach($criterium as $ckey => $criteria)
 
-                                    <td  id="point" data-sid={{$skey}} data-cid={{$ckey}}>{{$points[$skey][$ckey]}}</td>
+                                    <td  id="point" data-sid={{$skey}} data-cid={{$ckey}} data-mpts={{$criteria['maxPoint']}}>{{$points[$skey][$ckey]}}</td>
 
                             @endforeach
 
@@ -127,7 +134,7 @@
                 @endforeach
             </table>
         </div>
-            <h3> Modifier la grille</h3>
+            <h3> Modifier Points</h3>
         <div>
             <p>Élève</p>
 

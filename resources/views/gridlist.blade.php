@@ -92,6 +92,7 @@
                             <th>Module</th>
                             <th>Date</th>
                             <th>Classe</th>
+                            <th>
                         </tr>
                         @foreach($grids as $grid)
                             <tr class="table-row" >
@@ -99,7 +100,10 @@
                                 <td>{{ $grid->module }}</td>
                                 <td><a href='/grid/{{$grid->id}}'>{{ $grid->date}}</a></td>
                                 <td>{{ $grid->class}}</td>
-
+                                <form method="post" action="/grid/{{$grid->id}}/edit">
+                                    @csrf
+                                    <td><input type="submit" value="edit" name="edit"></td>
+                                </form>
                             </tr>
                         @endforeach
                     </table>
