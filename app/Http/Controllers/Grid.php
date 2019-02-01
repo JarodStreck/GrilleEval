@@ -114,6 +114,16 @@ class Grid extends Controller
 
     }
     public function addcriteria(Request $request,$id){
-
+        /*Not finished
+        $contents = DB::table('students')
+        ->join('evaluation_grids','evaluation_grid_id','=','evaluation_grids.id')
+        ->where('evaluation_grid_id','=',$id)
+        ->select('students.id')
+        ->orderBy('students.id')
+        ->get();
+        $addedUser = DB::table('criteria')->insertGetId(
+            ['name' =>$namePart[0],'lastname'=>$namePart[1]]
+        );
+        return back()->withInput();*/
     }
 }
