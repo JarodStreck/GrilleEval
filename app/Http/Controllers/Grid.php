@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 class Grid extends Controller
 {
+    //Get all criteria /students / criteria assessement of a grid
     public function index($id){
         $contents = DB::table('criteria_assessment')
         ->join('criteria','criteria_id','=','criteria.id')
@@ -17,7 +18,7 @@ class Grid extends Controller
         ->orderBy('name','question_id','criteria.id')
         ->get();
         $points = array();
-
+        //Create correct array to easily display them after
         foreach ($contents as $content) {
 
 
@@ -30,6 +31,7 @@ class Grid extends Controller
         }
 
         $maxPoint = 0;
+        //Store max point of every criteria
         foreach ($criterion as $ckey => $criteria) {
             $maxPoint += $criteria['maxPoint'];
         }
@@ -40,37 +42,38 @@ class Grid extends Controller
             {
                 $totalPoint+= $point;
             }
+            //Calculating  total of point finale note and rounded note
             $totalPoints[$skey] = $totalPoint;
             $noteFinale[$skey] = number_format(($totalPoints[$skey]/$maxPoint)*5 + 1,1);
             $noteDixieme[$skey] = round($noteFinale[$skey] * 2) / 2;
         }
 
-        //dd($points);
+
         return view('grid')->with('criterion', $criterion)->with('students',$students)->with('points',$points)->with('totalPoints',$totalPoints)->with('noteFinale',$noteFinale)->with('noteDixieme',$noteDixieme)->with('id',$id)->with('maxPoint',$maxPoint);
 
 
     }
     public function update(Request $request,$id){
-
+        //Update the point of a specific student / criteria
         DB::table('criteria_assessment')
         ->where('student_id','=',$request->sid)
         ->Where('criteria_id','=',$request->cid)
         ->update(array('nbPoint' => $request->pts));
-        return back()->withInput()->with('old_sid',$request->sid)->with('old_cid',$request->cid);
+        return back()->withInput();
 
 
     }
     public function edit(Request $request,$id){
-
+        //Get all criteria and all students of a specific grid. also the grid info
         $contents = DB::table('criteria_assessment')
         ->join('criteria','criteria_id','=','criteria.id')
         ->join('students','student_id','=','students.id')
         ->join('evaluation_grids','evaluation_grid_id','=','evaluation_grids.id')
         ->where('evaluation_grid_id','=',$id)
         ->select('description','criteria_id','name','lastname','student_id','module','date','class')
-        ->orderBy('name','question_id','criteria.id')
+        ->orderBy('criteria_id','student.id')
         ->get();
-        //Get all criteria and all students of a specific grid. also the grid info 
+
         foreach ($contents as $content) {
 
             $criterion[$content->criteria_id] = $content->description;
@@ -107,7 +110,10 @@ class Grid extends Controller
                 ['nbPoint'=> 0,'student_id' =>$addedUser,'criteria_id'=>$criteria->id]
             );
         }
+        return back()->withInput();
 
+    }
+    public function addcriteria(Request $request,$id){
 
     }
 }
