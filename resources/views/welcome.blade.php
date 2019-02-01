@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="/Gridlist">Liste grille</a>
+                    <a href="/gridlist">Liste grille</a>
                     <a href="/Newgrid">Nouvelle grille</a>
 
                 </div>

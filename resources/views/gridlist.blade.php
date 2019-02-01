@@ -100,9 +100,9 @@
                                 <td>{{ $grid->module }}</td>
                                 <td><a href='/grid/{{$grid->id}}'>{{ $grid->date}}</a></td>
                                 <td>{{ $grid->class}}</td>
-                                <form method="post" action="/grid/{{$grid->id}}/edit">
-                                    @csrf
-                                    <td><input type="submit" value="edit" name="edit"></td>
+                                <form action="/grid/{{$grid->id}}/edit">
+
+                                    <td><a href='/grid/{{$grid->id}}/edit'>Edit</a></td>
                                 </form>
                             </tr>
                         @endforeach

@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/Gridlist','GridList@index');
+Route::get('/gridlist','GridList@index');
 Route::get('/grid/{id}','Grid@index');
 Route::post('/grid/{id}/update','Grid@update');
+Route::get('/grid/{id}/edit','Grid@edit');
+Route::post('/grid/{id}/edit/addstudent','Grid@addstudent');
+Route::post('/grid/{id}/edit/addcriteria','Grid@addcriteria');

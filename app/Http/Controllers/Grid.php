@@ -21,8 +21,8 @@ class Grid extends Controller
         foreach ($contents as $content) {
 
 
-            $criterium[$content->criteria_id]['description']=$content->description;
-            $criterium[$content->criteria_id]['maxPoint']=$content->maxPoint;
+            $criterion[$content->criteria_id]['description']=$content->description;
+            $criterion[$content->criteria_id]['maxPoint']=$content->maxPoint;
 
             $students[$content->student_id] = $content->name;
 
@@ -30,7 +30,7 @@ class Grid extends Controller
         }
 
         $maxPoint = 0;
-        foreach ($criterium as $ckey => $criteria) {
+        foreach ($criterion as $ckey => $criteria) {
             $maxPoint += $criteria['maxPoint'];
         }
         foreach ($students as $skey => $student) {
@@ -46,7 +46,7 @@ class Grid extends Controller
         }
 
         //dd($points);
-        return view('grid')->with('criterium', $criterium)->with('students',$students)->with('points',$points)->with('totalPoints',$totalPoints)->with('noteFinale',$noteFinale)->with('noteDixieme',$noteDixieme)->with('id',$id);
+        return view('grid')->with('criterion', $criterion)->with('students',$students)->with('points',$points)->with('totalPoints',$totalPoints)->with('noteFinale',$noteFinale)->with('noteDixieme',$noteDixieme)->with('id',$id)->with('maxPoint',$maxPoint);
 
 
     }
@@ -57,6 +57,56 @@ class Grid extends Controller
         ->Where('criteria_id','=',$request->cid)
         ->update(array('nbPoint' => $request->pts));
         return back()->withInput()->with('old_sid',$request->sid)->with('old_cid',$request->cid);
+
+
+    }
+    public function edit(Request $request,$id){
+
+        $contents = DB::table('criteria_assessment')
+        ->join('criteria','criteria_id','=','criteria.id')
+        ->join('students','student_id','=','students.id')
+        ->join('evaluation_grids','evaluation_grid_id','=','evaluation_grids.id')
+        ->where('evaluation_grid_id','=',$id)
+        ->select('description','criteria_id','name','lastname','student_id','module','date','class')
+        ->orderBy('name','question_id','criteria.id')
+        ->get();
+        //Get all criteria and all students of a specific grid. also the grid info 
+        foreach ($contents as $content) {
+
+            $criterion[$content->criteria_id] = $content->description;
+            $students[$content->student_id] = $content->name ." ".$content->lastname;
+            $gridinfo['module'] = $content->module;
+            $gridinfo['date'] = $content->date;
+            $gridinfo['class'] = $content->class;
+
+        }
+
+        return view('editgrid')->with('id',$id)->with('students',$students)->with('criterion',$criterion)->with('gridinfo',$gridinfo);
+    }
+    public function addstudent(Request $request, $id)
+    {
+        //Get all criteria
+        $contents = DB::table('criteria')
+        ->join('evaluation_grids','evaluation_grid_id','=','evaluation_grids.id')
+        ->where('evaluation_grid_id','=',$id)
+        ->select('criteria.id')
+        ->orderBy('criteria.id')
+        ->get();
+
+
+        //Split name and last name
+        $namePart = explode(" ",$request->student);
+        //add user in db insertGetId give us the last inserted ID
+        $addedUser = DB::table('students')->insertGetId(
+            ['name' =>$namePart[0],'lastname'=>$namePart[1]]
+        );
+
+        //For every criteria , generate a criteria assessement
+        foreach ($contents as $cid => $criteria) {
+            DB::table('criteria_assessment')->insert(
+                ['nbPoint'=> 0,'student_id' =>$addedUser,'criteria_id'=>$criteria->id]
+            );
+        }
 
 
     }

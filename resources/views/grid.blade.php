@@ -18,6 +18,7 @@
 
         <!-- Styles -->
         <style>
+            @import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
             html, body {
                 background-color: #fff;
                 color: #636b6f;
@@ -81,6 +82,15 @@
                 width: 50px;
 
             }
+
+            .errorMsg{
+                color: #D8000C;
+                background-color: #FFD2D2;
+                margin:10px 22px;
+                font-size:2em;
+                vertical-align:middle;
+                visibility: hidden;
+            }
         </style>
     </head>
     <body>
@@ -88,9 +98,14 @@
 
 
         <div class="links">
+            <a href="/grid/{{$id}}/edit">Edit Grid</a>
             <a href="/">Home</a>
             <a href="https://laracasts.com">Nouvelle grille</a>
 
+        </div>
+        <div class="errorMsg">
+           <i class="fa fa-times-circle"></i>
+           Erreur ! Nombre de points incorrectes
         </div>
         <div>
             <table id="gridtable" class="gridtable table table-sm table-bordered" >
@@ -100,7 +115,7 @@
                         <th>Au 1/10</th>
                         <th>Finale</th>
                         <th>Total des points</th>
-                    @foreach($criterium as $ckey => $criteria)
+                    @foreach($criterion as $ckey => $criteria)
 
                             <th class="header" id='criteria-{{$ckey}}'>{{$criteria['description']}}</th>
 
@@ -108,8 +123,9 @@
 
                     </tr>
                     <tr style="font-weight:bold">
-                        <td >Pts Max</td>
-                        @foreach($criterium as $ckey => $criteria)
+                        <td>Maximum</td>
+                        <td>6</td><td>6</td><td>{{$maxPoint}}</td>
+                        @foreach($criterion as $ckey => $criteria)
 
                                 <td id='criteria-{{$ckey}}'>{{$criteria['maxPoint']}}</td>
 
@@ -122,7 +138,7 @@
                                 <td>{{$noteDixieme[$skey]}}</td>
                                 <td>{{$noteFinale[$skey]}}</td>
                                 <td>{{$totalPoints[$skey]}}</td>
-                            @foreach($criterium as $ckey => $criteria)
+                            @foreach($criterion as $ckey => $criteria)
 
                                     <td  id="point" data-sid={{$skey}} data-cid={{$ckey}} data-mpts={{$criteria['maxPoint']}}>{{$points[$skey][$ckey]}}</td>
 
@@ -138,7 +154,7 @@
         <div>
             <p>Élève</p>
 
-            <form method="post" action="{{$id}}/update">
+            <form method="post" action="{{$id}}/update" id="updateForm">
                 @csrf
                 <div id="student" >?</div>
                 <input type="hidden" id="sid" name="sid">
@@ -146,8 +162,9 @@
                 <p>Critère</p>
                 <b><div id="criteria">?</div></b>
                 <input type="hidden" id="cid" name="cid">
+                <input type="hidden" id="mpts" name="mpts">
                 <input type="text" name="pts" id="pts">
-                <input type="submit" name="update">
+                <input class="btn btn-primary" type="submit" name="update">
             </form>
         </div>
     </body>
